@@ -1,5 +1,15 @@
+@font-face {
+  font-family: apple-garamond;
+  src: url('../assets/fonts/garamond/AppleGaramond.ttf');
+}
+@font-face {
+  font-family: apple-garamond-bold;
+  src: url('../assets/fonts/garamond/AppleGaramond-Bold.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: apple-garamond;
 }

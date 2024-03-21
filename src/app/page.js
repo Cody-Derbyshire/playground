@@ -2,6 +2,7 @@
 
 import styles from './page.module.css';
 import Footer from '@/components/Footer';
+import PopMenu from '@/components/PopMenu';
 import Lenis from '@studio-freight/lenis';
 
 import { useRef, useEffect } from 'react';
@@ -142,6 +143,12 @@ export default function Home() {
           <h1 className={styles.h1bgtext}>sticky footer</h1>
         </div>
         <Footer />
+      </div>
+      <div className={styles.div}>
+        <h1 className={styles.h1bgtext}>image pop menu</h1>
+        <div className={styles.menuContainer}>
+          <PopMenu />
+        </div>
       </div>
     </>
   );

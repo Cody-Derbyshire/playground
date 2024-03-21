@@ -40,7 +40,7 @@ export default function Footer() {
                 startOffset={i * 40 + '%'}
                 href='#curve'
               >
-                Curabitur mattis efficitur velit
+                cody derbyshire is a web dev + designer
               </textPath>
             );
           })}
@@ -53,6 +53,8 @@ export default function Footer() {
 
 const Logos = ({ scrollProgress }) => {
   const y = useTransform(scrollProgress, [0, 1], [-225, 0]);
+
+  /* const  */
 
   return (
     <div className={styles.footerDiv}>

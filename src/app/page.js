@@ -1,95 +1,148 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import styles from './page.module.css';
+import Footer from '@/components/Footer';
+import Lenis from '@studio-freight/lenis';
+
+import { useRef, useEffect } from 'react';
 
 export default function Home() {
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time) {
+      lenis.raf(time);
+
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
+  let refs = [];
+
+  let currentIndex = 0;
+
+  let steps = 0;
+
+  let nbOfImages = 0;
+
+  /* let maxNumberOfImages = 8; */
+
+  const manageMouseMove = (e) => {
+    const { clientX, clientY, movementX, movementY } = e;
+
+    steps += Math.abs(movementX) + Math.abs(movementY);
+
+    if (steps >= currentIndex * 150) {
+      moveImage(clientX, clientY);
+    }
+
+    /* if (nbOfImages == maxNumberOfImages) {
+      removeImage();
+    } */
+
+    if (currentIndex == refs.length) {
+      currentIndex = 0;
+
+      steps = -150;
+    }
+  };
+
+  /* const removeImage = () => {
+    const images = getCurrentImages();
+
+    images[0].style.display = 'none';
+
+    nbOfImages--;
+  }; */
+
+  const setZIndex = () => {
+    const images = getCurrentImages();
+
+    for (let i = 0; i < images.length; i++) {
+      images[i].style.zIndex = i;
+    }
+  };
+
+  const moveImage = (x, y) => {
+    const currentImage = refs[currentIndex].current;
+
+    currentImage.style.left = x + 'px';
+
+    currentImage.style.top = y + 'px';
+
+    currentImage.style.display = 'block';
+
+    currentIndex++;
+
+    nbOfImages++;
+
+    setZIndex();
+  };
+
+  /* const getCurrentImages = () => {
+    let images = [];
+
+    let indexOfFirst = currentIndex - nbOfImages;
+
+    for (let i = indexOfFirst; i < currentIndex; i++) {
+      let targetIndex = i;
+
+      if (targetIndex < 0) targetIndex += refs.length;
+
+      images.push(refs[targetIndex].current);
+    }
+
+    return images;
+  }; */
+
+  const getCurrentImages = () => {
+    let images = [];
+
+    let indexOfFirst = currentIndex - nbOfImages;
+
+    for (let i = indexOfFirst; i < currentIndex; i++) {
+      let targetIndex = i;
+
+      // Ensure targetIndex is within the valid range of indices
+      while (targetIndex < 0) {
+        targetIndex += refs.length;
+      }
+
+      targetIndex %= refs.length; // Ensure targetIndex wraps around if it exceeds array length
+
+      // Check if refs[targetIndex] is defined before accessing its current property
+      if (refs[targetIndex]) {
+        images.push(refs[targetIndex].current);
+      }
+    }
+
+    return images;
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div
+        onMouseMove={(e) => {
+          manageMouseMove(e);
+        }}
+        className={styles.hvrImg}
+      >
+        <h1 className={styles.h1bgtext}>mouse hover image trail</h1>
+        {[...Array(6).keys()].map((_, index) => {
+          const ref = useRef(null);
+
+          refs.push(ref);
+
+          return <img key={index} ref={ref} src={`/images/${index}.png`}></img>;
+        })}
+      </div>
+      <div className={styles.div}>
+        <div className={styles.motionPathDiv}>
+          <h1 className={styles.h1bgtext}>sticky footer</h1>
         </div>
+        <Footer />
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   );
 }

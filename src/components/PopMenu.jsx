@@ -25,8 +25,8 @@ const PopMenu = () => {
 
   return (
     <>
-      {projects.map((project) => {
-        return <Project project={project} />;
+      {projects.map((project, index) => {
+        return <Project key={index} project={project} />;
       })}
     </>
   );

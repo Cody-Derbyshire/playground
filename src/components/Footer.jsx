@@ -29,10 +29,13 @@ export default function Footer() {
           fill='none'
           id='curve'
           /* stroke='black' */
-          d='m0,88.5c61.37,0,61.5-68,126.5-68,58,0,51,68,123,68'
+          /* d='m0,88.5c61.37,0,61.5-68,126.5-68,58,0,51,68,123,68' */
+          d='M0.3,47.7C37.2,19,60.7,17.3,75.8,22.2c30.1,9.7,34.1,47.5,70.4,53.4c1.4,0.2,29.4,4.3,44.5-13.1
+	c5.9-6.9,13.5-21.3,6.6-31.3c-6.6-9.6-23.8-11.1-33.6-2.7c-8.8,7.5-8.5,20.3-5.8,28.2c5,14.6,21.1,20,27.1,22
+	c23.4,7.9,48-2.7,64.9-13.2'
         />
         <text className={styles.svgText} style={{ fill: 'black' }}>
-          {[...Array(3)].map((_, i) => {
+          {[...Array(7)].map((_, i) => {
             return (
               <textPath
                 key={i}
@@ -40,7 +43,7 @@ export default function Footer() {
                 startOffset={i * 40 + '%'}
                 href='#curve'
               >
-                cody derbyshire is a web dev + designer
+                cody is an interactive digital designer
               </textPath>
             );
           })}

@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import PopMenu from '@/components/PopMenu';
 import MouseTrail from '@/components/MouseTrail';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 export default function Home() {
   useEffect(() => {
@@ -25,18 +25,18 @@ export default function Home() {
     <>
       <MouseTrail />
       <div className={styles.div}>
+        <h1 className={styles.h1bgtext}>image pop menu</h1>
+        <div className={styles.menuContainer}>
+          <PopMenu />
+        </div>
+      </div>
+      <div className={styles.div}>
         <div className={styles.motionPathDiv}>
           <h1 className={styles.h1bgtext}>
             sticky footer + text path on scroll
           </h1>
         </div>
         <Footer />
-      </div>
-      <div className={styles.div}>
-        <h1 className={styles.h1bgtext}>image pop menu</h1>
-        <div className={styles.menuContainer}>
-          <PopMenu />
-        </div>
       </div>
     </>
   );
